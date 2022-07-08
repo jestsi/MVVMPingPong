@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Input;
+using ApplicationModels;
 
 namespace MVVMPingPong
 {
@@ -20,7 +20,7 @@ namespace MVVMPingPong
             }
         }
 
-        private Size _sizeWindow;
+        private readonly MainWindow _mainWindow;
         
         public int RocketY
         {
@@ -116,12 +116,16 @@ namespace MVVMPingPong
                 Rocket2.Move(dirToMove);
         }
         
-        public ApplicationViewModel(double width, double height)
+        public ApplicationViewModel(MainWindow window)
         {
-            _sizeWindow = new Size(width, height);
-            Rocket = new RocketModel();
-            Rocket2 = new RocketModel(_sizeWindow.Width, _sizeWindow.Height);
+            _mainWindow = window;
             
+            Rocket = new RocketModel();
+            Rocket2 = new RocketModel();
+
+            Rocket2.X = (int)_mainWindow.Width - (int)Rocket2.Height - RocketModel.OffsetFromBound;
+            Rocket2.Y = (int)_mainWindow.Height / 2;
+
             Rocket.PropertyChanged += RocketOnPropertyChanged;
             Rocket2.PropertyChanged += RocketOnPropertyChanged;
         } 

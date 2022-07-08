@@ -9,7 +9,7 @@
         {
             InitializeComponent();
     
-            DataContext = new ApplicationViewModel(Width, Height);
+            DataContext = new ApplicationViewModel(this);
         }
     }
 }

@@ -66,9 +66,7 @@
             <SubType>Designer</SubType>
         </ApplicationDefinition>
         <Compile Include="ApplicationViewModel.cs" />
-        <Compile Include="Direction.cs" />
         <Compile Include="RelayCommand.cs" />
-        <Compile Include="RocketModel.cs" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
@@ -99,6 +97,12 @@
     <ItemGroup>
         <None Include="App.config" />
         <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\ApplicationModels\ApplicationModels.csproj">
+        <Project>{3079baf7-fab1-41c6-b51f-4432fe013a69}</Project>
+        <Name>ApplicationModels</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

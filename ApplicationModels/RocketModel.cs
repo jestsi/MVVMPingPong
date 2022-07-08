@@ -1,15 +1,13 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Windows.Input;
 using System.Windows.Media;
 
-namespace MVVMPingPong
+namespace ApplicationModels
 {
     public class RocketModel : INotifyPropertyChanged
     {
-        private const int OffsetFromBound = 20;
+        public const int OffsetFromBound = 20;
 
         public double Width { get; set; }
         public double Height { get; set; }
@@ -33,22 +31,17 @@ namespace MVVMPingPong
             Color = Brushes.Black;
             StepSize = 5;
         }
-        
-        public RocketModel(double width, double height) : this()
-        {
-            X = (int)width - OffsetFromBound;
-            Y = (int)height/2;
-        }
 
         public override int GetHashCode()
         {
-            const int fnvOffsetBasic = 1469598;
-            const int fnvPrime = 1099511;
+            const uint fnvOffsetBasic = 0x811c9dc5;
+            const int fnvPrime = 0x01000193;
             
-            var hash = fnvOffsetBasic ^ (Height.GetHashCode() + Width.GetHashCode() + X.GetHashCode() + Y.GetHashCode());
+            var hash = fnvOffsetBasic ^
+                       (Height.GetHashCode()/10 ^ Width.GetHashCode()%124 + X.GetHashCode() + Y.GetHashCode());
             hash *= fnvPrime;
 
-            return hash;
+            return (int)hash;
         }
 
         public override bool Equals(object obj)
